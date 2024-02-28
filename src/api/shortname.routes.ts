@@ -47,6 +47,7 @@ export default function shortnameRoutes(app: Express): void {
           res.status(200).send(data);
         }
       } catch (error) {
+        console.error('Error retrieving shortname data', error);
         res.status(500).send(error);
       }
     }
@@ -76,6 +77,7 @@ export default function shortnameRoutes(app: Express): void {
         shortnameDao.create(item);
         res.status(201).send(item);
       } catch (error) {
+        console.error('Error creating shortname', error);
         res.status(500).send(error);
       }
     }
@@ -89,6 +91,7 @@ export default function shortnameRoutes(app: Express): void {
         shortnameDao.deleteByShortname(req.params.shortname);
         res.status(204).send();
       } catch (error) {
+        console.error('Error deleting shortname', error);
         res.status(500).send(error);
       }
     }
