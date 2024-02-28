@@ -85,6 +85,14 @@
       "import/no-dynamic-require": "off",
       "global-require": "off",
       "no-shadow": "off",
-      "no-restricted-syntax": "off"
+      "no-restricted-syntax": "off",
+      "new-cap": [
+        "error",
+        {
+          "capIsNewExceptions": [
+            "JSONFilePreset"
+          ]
+        }
+      ]
     }
 }
