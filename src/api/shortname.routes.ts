@@ -8,6 +8,25 @@ import ShortnameData from '../models/shortname-data.model';
  * @param {Express} app Express app
  */
 export default function shortnameRoutes(app: Express): void {
+  app.get('/:shortname', (req: Request, res: Response) => {
+    console.log('GET /:shortname');
+    try {
+      console.log(`Attempting to resolve shortname ${req.params.shortname}`);
+      const shortnameData = shortnameDao.getByShortname(req.params.shortname);
+      if (shortnameData) {
+        console.log(`Redirecting to ${shortnameData.destination}`);
+        res.redirect(shortnameData.destination);
+      } else {
+        // Shortname record not found
+        console.log('No Record Found');
+        res.status(404).send('No Record Found');
+      }
+    } catch (error) {
+      console.error('Error resolving shortname', error);
+      res.status(500).send(error);
+    }
+  });
+
   app.get(
     '/api/shortname/:shortname?',
     (req: Request, res: Response) => {
