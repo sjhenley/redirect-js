@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <title>Shortname List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    .del-btn {
+      border: unset;
+      background-color: unset;
+      display: grid;
+    }
+  </style>
+</head>
+<body onload='loadShortnameData()'>
+  <div class='container col-8 mt-4 d-grid gap-1 justify-content-center'>
+    <h1>Shortname List</h1>
+    <a class='btn btn-primary col-4' href='/add.html'>Add Shortname</a>
+    <div id='del-shortname-success' class='alert alert-success d-none' role='alert'>
+      Shortname removed successfully
+    </div>
+    <div id='del-shortname-error' class='alert alert-danger d-none' role='alert'></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope='col'>Delete</th>
+          <th scope='col'>Shortname</th>
+          <th scope='col'>Destination</th>
+          <th scope='col'>Creation Date</th>
+        </tr>
+      </thead>
+      <tbody id='shortname-list'></tbody>
+    </table>
+  </div>
+</body>
+<script src='js/list-shortname.js'></script>
+</html>

@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/app-server.ts",
   "scripts": {
-    "start": "npx tsc-watch --onSuccess \"node ./dist/app-server.js\"",
+    "start": "npx tsc-watch --onSuccess \"npm run copy && node ./dist/app-server.js\"",
+    "copy": "npx copyfiles -u 1 src/public/**/*.html src/public/**/*.css src/public/**/*.js dist/",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
