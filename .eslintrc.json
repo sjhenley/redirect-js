@@ -12,6 +12,7 @@
         "sourceType": "module"
     },
     "plugins": [
+        "html",
         "@typescript-eslint"
     ],
     "rules": {
