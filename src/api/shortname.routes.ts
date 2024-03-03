@@ -1,15 +1,24 @@
-import {Express, Request, Response} from 'express';
+import {Express, NextFunction, Request, Response} from 'express';
 import shortnameDao from '../db/shortname-json.dao';
 import {postShortnameValidator} from './shortname.validator';
 import ShortnameData from '../models/shortname-data.model';
+import SHORTNAME_BLACKLIST from '../const/shortname-blacklist.const';
 
 /**
  * Registering routes for Shortname API
  * @param {Express} app Express app
  */
 export default function shortnameRoutes(app: Express): void {
-  app.get('/:shortname', (req: Request, res: Response) => {
+  app.get('/:shortname', (req: Request, res: Response, next: NextFunction) => {
     console.log('GET /:shortname');
+    if (!req.params?.shortname) {
+      console.log('No shortname provided, ignoring the request');
+      next();
+    }
+    if (SHORTNAME_BLACKLIST.includes(req.params.shortname)) {
+      console.log('Blacklisted shortname, ignoring the request');
+      next();
+    }
     try {
       console.log(`Attempting to resolve shortname ${req.params.shortname}`);
       const shortnameData = shortnameDao.getByShortname(req.params.shortname);
@@ -63,6 +72,10 @@ export default function shortnameRoutes(app: Express): void {
         let shortname = req.body.shortname;
         if (!shortname) {
           shortname = Math.random().toString(36).substring(2, 10);
+          console.log(`Generating a random shortname: ${shortname}`);
+        } else if (SHORTNAME_BLACKLIST.includes(shortname)) {
+          console.error('Shortname is blacklisted');
+          res.status(400).send('Shortname is not allowed');
         }
 
         // Generate the creation timestamp
